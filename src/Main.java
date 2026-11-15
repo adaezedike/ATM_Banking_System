@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
-
 public class Main {
     static ArrayList<String> transactions = new ArrayList<>();
 
@@ -15,10 +13,9 @@ public class Main {
 
             displayMenu();
             int option = scanner.nextInt();
-            if (option == 4) {
+            if (option == 5) {
                 System.out.println("Thank you for choosing AA Bank");
-                showTransactionHistory();
-                System.out.println("Current Balance: £" + balance);
+                
                 break;
             }
             switch (option) {
@@ -33,8 +30,12 @@ public class Main {
                     checkBalance(balance);
                     break;
 
+                case 4:
+                    showTransactionHistory(balance);
+                    break;
+
                 default:
-                    System.out.println("invalid option choose 1-4");
+                    System.out.println("invalid option choose 1-5");
             }
         }
 
@@ -51,7 +52,7 @@ public class Main {
         if (amount <= 0) {
             System.out.println("Enter a valid amount");
         } else if (amount > balance) {
-            System.out.println("insufficient funds");
+            System.out.println("Insufficient funds.");
         } else {
             balance -= amount;
             transactions.add("Withdraw: -£" + amount);
@@ -67,7 +68,7 @@ public class Main {
         double deposit = scanner.nextDouble();
         if (deposit > 0) {
             balance += deposit;
-            transactions.add("Deposit: +£" + deposit);
+            transactions.add("Deposit: +£" + deposit);  
             System.out.println("Your available Balance is " + balance);
         } else {
             System.out.println("Enter a valid amount");
@@ -79,19 +80,28 @@ public class Main {
         System.out.println("Your balance is £" + balance);
     }
 
-    public static void showTransactionHistory() {
+    public static void showTransactionHistory(double balance) {
         System.out.println("\n===== Transaction History =====");
-        for (String transaction : transactions) {
-            System.out.println(transaction);
-        }
-    }   
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions yet.");
+        } else {
+            for (String transaction : transactions) {
+                System.out.println(transaction);
+            }
+
+        }  
+            System.out.println("Current Balance: £" + balance);
+            System.out.println("--- end ---");
+
+    }
 
     public static void displayMenu() {
         System.out.println("\n===== AA BANK =====");
         System.out.println("1. Withdraw");
         System.out.println("2. Deposit");
         System.out.println("3. Check Balance");
-        System.out.println("4. Exit");
+        System.out.println("4. Transaction History");
+        System.out.println("5. Exit");
         System.out.print("Choose an option: ");
     }
 }
