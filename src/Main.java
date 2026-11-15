@@ -13,7 +13,7 @@ public class Main {
 
         while (true) {
 
-            menu();
+            displayMenu();
             int option = scanner.nextInt();
             if (option == 4) {
                 System.out.println("Thank you for choosing AA Bank");
@@ -23,10 +23,10 @@ public class Main {
             }
             switch (option) {
                 case 1:
-                    balance = withdrawal(balance, scanner);
+                    balance = withdraw(balance, scanner);
                     break;
                 case 2:
-                    balance = depositMoney(balance, scanner);
+                    balance = deposit(balance, scanner);
                     break;
 
                 case 3:
@@ -42,7 +42,7 @@ public class Main {
 
     }
 
-    public static double withdrawal(double balance, Scanner scanner) {
+    public static double withdraw(double balance, Scanner scanner) {
         System.out.println("How much do you want to Withdraw");
 
         // double balance=1000;
@@ -62,7 +62,7 @@ public class Main {
 
     }
 
-    public static double depositMoney(double balance, Scanner scanner) {
+    public static double deposit(double balance, Scanner scanner) {
         System.out.println("How much do you want to Deposit");
         double deposit = scanner.nextDouble();
         if (deposit > 0) {
@@ -86,7 +86,7 @@ public class Main {
         }
     }   
 
-    public static void menu() {
+    public static void displayMenu() {
         System.out.println("\n===== AA BANK =====");
         System.out.println("1. Withdraw");
         System.out.println("2. Deposit");
