@@ -1,6 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
+
 
 public class Main {
+    static ArrayList<String> transactions = new ArrayList<>();
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -11,7 +16,9 @@ public class Main {
             menu();
             int option = scanner.nextInt();
             if (option == 4) {
-                System.out.println("Thank you for choosing AA BAnk");
+                System.out.println("Thank you for choosing AA Bank");
+                showTransactionHistory();
+                System.out.println("Current Balance: £" + balance);
                 break;
             }
             switch (option) {
@@ -47,6 +54,7 @@ public class Main {
             System.out.println("insufficient funds");
         } else {
             balance -= amount;
+            transactions.add("Withdraw: -£" + amount);
             System.out.println("Your available Balance is " + balance);
         }
 
@@ -59,6 +67,7 @@ public class Main {
         double deposit = scanner.nextDouble();
         if (deposit > 0) {
             balance += deposit;
+            transactions.add("Deposit: +£" + deposit);
             System.out.println("Your available Balance is " + balance);
         } else {
             System.out.println("Enter a valid amount");
@@ -69,6 +78,13 @@ public class Main {
     public static void checkBalance(double balance) {
         System.out.println("Your balance is £" + balance);
     }
+
+    public static void showTransactionHistory() {
+        System.out.println("\n===== Transaction History =====");
+        for (String transaction : transactions) {
+            System.out.println(transaction);
+        }
+    }   
 
     public static void menu() {
         System.out.println("\n===== AA BANK =====");
