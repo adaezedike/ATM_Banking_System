@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -9,18 +10,19 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-
             displayMenu();
             int option = scanner.nextInt();
+
             if (option == 5) {
                 System.out.println("Thank you for choosing AA Bank");
-                
                 break;
             }
+
             switch (option) {
                 case 1:
                     withdraw(account, scanner);
                     break;
+
                 case 2:
                     deposit(account, scanner);
                     break;
@@ -34,52 +36,50 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("invalid option choose 1-5");
+                    System.out.println("Invalid option. Choose 1-5.");
             }
         }
 
         scanner.close();
-
     }
 
     public static void withdraw(BankAccount account, Scanner scanner) {
-        System.out.println("How much do you want to Withdraw");
+        System.out.println("How much do you want to withdraw?");
         double amount = scanner.nextDouble();
 
         if (account.withdraw(amount)) {
             transactions.add("Withdraw: -£" + amount);
-            System.out.println("Your available Balance is " + account.getBalance());
+            System.out.println("Your available balance is £" + account.getBalance());
         }
-
     }
 
     public static void deposit(BankAccount account, Scanner scanner) {
-        System.out.println("How much do you want to Deposit");
-        double deposit = scanner.nextDouble();
-       if (account.deposit(deposit)) {
-        transactions.add("Deposit: +£" + deposit);
-        System.out.println("Your available Balance is " + account.getBalance());
-}
+        System.out.println("How much do you want to deposit?");
+        double amount = scanner.nextDouble();
+
+        if (account.deposit(amount)) {
+            transactions.add("Deposit: +£" + amount);
+            System.out.println("Your available balance is £" + account.getBalance());
+        }
     }
 
     public static void checkBalance(BankAccount account) {
         System.out.println("Your balance is £" + account.getBalance());
     }
 
-
     public static void showTransactionHistory(BankAccount account) {
         System.out.println("\n===== Transaction History =====");
+
         if (transactions.isEmpty()) {
             System.out.println("No transactions yet.");
         } else {
             for (String transaction : transactions) {
                 System.out.println(transaction);
             }
-
         }
-        System.out.println("Current Balance: £" + account.getBalance());
-            System.out.println("--- end ---");
 
+        System.out.println("Current Balance: £" + account.getBalance());
+        System.out.println("--- end ---");
     }
 
     public static void displayMenu() {
