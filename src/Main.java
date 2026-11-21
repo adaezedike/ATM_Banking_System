@@ -1,12 +1,12 @@
 
 import java.util.Scanner;
-import java.util.ArrayList;
+
 
 public class Main {
-    static ArrayList<String> transactions = new ArrayList<>();
 
     public static void main(String[] args) {
         BankAccount account = new BankAccount(1000);
+        TransactionHistory history = new TransactionHistory();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -20,11 +20,11 @@ public class Main {
 
             switch (option) {
                 case 1:
-                    withdraw(account, scanner);
+                    withdraw(account, scanner, history);
                     break;
 
                 case 2:
-                    deposit(account, scanner);
+                    deposit(account, scanner, history);
                     break;
 
                 case 3:
@@ -32,7 +32,7 @@ public class Main {
                     break;
 
                 case 4:
-                    showTransactionHistory(account);
+                    showTransactionHistory(account, history);
                     break;
 
                 default:
@@ -43,22 +43,22 @@ public class Main {
         scanner.close();
     }
 
-    public static void withdraw(BankAccount account, Scanner scanner) {
+    public static void withdraw(BankAccount account, Scanner scanner, TransactionHistory history) {
         System.out.println("How much do you want to withdraw?");
         double amount = scanner.nextDouble();
 
         if (account.withdraw(amount)) {
-            transactions.add("Withdraw: -£" + amount);
+            history.addTransaction("Withdraw: -£" + amount);
             System.out.println("Your available balance is £" + account.getBalance());
         }
     }
 
-    public static void deposit(BankAccount account, Scanner scanner) {
+    public static void deposit(BankAccount account, Scanner scanner, TransactionHistory history) {
         System.out.println("How much do you want to deposit?");
         double amount = scanner.nextDouble();
 
         if (account.deposit(amount)) {
-            transactions.add("Deposit: +£" + amount);
+            history.addTransaction("Deposit: +£" + amount);
             System.out.println("Your available balance is £" + account.getBalance());
         }
     }
@@ -67,16 +67,10 @@ public class Main {
         System.out.println("Your balance is £" + account.getBalance());
     }
 
-    public static void showTransactionHistory(BankAccount account) {
+    public static void showTransactionHistory(BankAccount account, TransactionHistory history) {
         System.out.println("\n===== Transaction History =====");
 
-        if (transactions.isEmpty()) {
-            System.out.println("No transactions yet.");
-        } else {
-            for (String transaction : transactions) {
-                System.out.println(transaction);
-            }
-        }
+        history.displayTransactions();
 
         System.out.println("Current Balance: £" + account.getBalance());
         System.out.println("--- end ---");
